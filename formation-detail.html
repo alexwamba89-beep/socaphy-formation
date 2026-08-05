@@ -49,6 +49,19 @@ footer a{color:var(--gris-600)}footer a:hover{color:var(--vert-700)}
 .side ul{list-style:none;margin-top:14px;border-top:1px solid var(--filet);padding-top:14px;display:grid;gap:10px}
 .side li{display:flex;justify-content:space-between;font-size:14px;color:var(--gris-600)}.side li b{color:var(--encre);font-weight:500}
 .places{background:var(--or-050);color:#8A6E10;font-size:13px;padding:8px 12px;border-radius:8px;margin-top:12px;text-align:center}
+
+.prog2{display:grid;gap:10px}
+.mod{border:1px solid var(--filet);border-radius:12px;overflow:hidden;background:#fff}
+.mod summary{list-style:none;display:flex;align-items:center;gap:12px;padding:15px 16px;cursor:pointer}
+.mod summary::-webkit-details-marker{display:none}
+.mod .n{width:26px;height:26px;border-radius:50%;background:var(--vert-050);color:var(--vert-700);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
+.mod .mt{flex:1}.mod .mt b{font-weight:600;font-size:15.5px;display:block;color:var(--encre)}.mod .mt small{color:var(--gris-400);font-size:13px}
+.mod .fl{color:var(--gris-400);transition:.2s;font-size:20px}.mod[open] .fl{transform:rotate(90deg)}
+.mod .body{padding:12px 16px 14px 54px;border-top:1px solid var(--filet)}
+.mod .md{color:var(--gris-600);font-size:14.5px;font-weight:300;margin-bottom:10px}
+.lec{display:flex;align-items:center;gap:11px;padding:8px 0;font-size:14.5px;color:var(--encre);border-top:1px solid var(--brume)}
+.lec:first-child{border-top:none}
+.lec .li{color:var(--vert-500);width:18px;text-align:center;flex-shrink:0}.lec .lt{flex:1}.lec .ld{color:var(--gris-400);font-size:13px;white-space:nowrap}
 </style></head><body>
 
 <header><div class="wrap nav">
@@ -67,12 +80,26 @@ footer a{color:var(--gris-600)}footer a:hover{color:var(--vert-700)}
   const id=new URLSearchParams(location.search).get("id");
   const vue=document.getElementById("vue");
   function dt(d){ if(!d)return "à preciser"; var p=String(d).split("-"); return p.length===3?p[2]+"/"+p[1]+"/"+p[0]:d; }
+  function icoF(f){ return f==="video"?"&#9654;":(f==="audio"?"&#127911;":"&#128196;"); }
+  function programmeHTML(f){
+    var mods = Array.isArray(f.modules) && f.modules.length ? f.modules : null;
+    if(mods){
+      return mods.map(function(m,i){
+        var lec=(m.l||[]).map(function(x){return `<div class="lec"><span class="li">${icoF(x.f)}</span><span class="lt">${echap(x.t)}</span><span class="ld">${echap(x.m||"")}</span></div>`;}).join("");
+        var meta=(m.l&&m.l.length)?(m.l.length+" leçon(s)"):"";
+        return `<details class="mod"${i===0?" open":""}><summary><span class="n">${i+1}</span><span class="mt"><b>${echap(m.t)}</b><small>${meta}</small></span><span class="fl">&rsaquo;</span></summary><div class="body">${m.d?`<p class="md">${echap(m.d)}</p>`:""}${lec}</div></details>`;
+      }).join("");
+    }
+    return (f.programme||[]).map(function(m,i){
+      return `<details class="mod"><summary><span class="n">${i+1}</span><span class="mt"><b>${echap(m)}</b></span><span class="fl">&rsaquo;</span></summary><div class="body"><p class="md">Contenu détaillé à venir.</p></div></details>`;
+    }).join("") || `<div class="charge">Programme à préciser</div>`;
+  }
   if(!id){ vue.innerHTML='<div class="charge">Aucune formation selectionnee. <a href="index.html" style="color:var(--vert-700)">Retour au catalogue</a></div>'; return; }
   SB.from("formations").select("*").eq("id",id).single().then(function(r){
     if(r.error||!r.data){ vue.innerHTML='<div class="charge">Formation introuvable. <a href="index.html" style="color:var(--vert-700)">Retour au catalogue</a></div>'; return; }
     var f=r.data;
     var obj=(f.objectifs||[]).map(o=>`<li>${echap(o)}</li>`).join("")||'<li>à preciser</li>';
-    var prog=(f.programme||[]).map((m,i)=>`<div class="m"><span class="n">${i+1}</span><span>${echap(m)}</span></div>`).join("")||'<div class="m"><span>Programme à preciser</span></div>';
+    var prog=programmeHTML(f);
     var restant=(f.places!=null&&f.inscrits!=null)?(f.places-f.inscrits):null;
     vue.innerHTML=`
     <section class="top"><div class="wrap">
@@ -86,7 +113,7 @@ footer a{color:var(--gris-600)}footer a:hover{color:var(--vert-700)}
       <div>
         <div class="bloc"><h2>Presentation</h2><p>${echap(f.resume||"")}</p></div>
         <div class="bloc"><h2>Objectifs pedagogiques</h2><ul class="obj">${obj}</ul></div>
-        <div class="bloc"><h2>Programme</h2><div class="prog">${prog}</div></div>
+        <div class="bloc"><h2>Programme</h2><div class="prog2">${prog}</div></div>
         <div class="bloc"><h2>Public vise</h2><p>${echap(f.audience||"-")}</p></div>
       </div>
       <aside class="side"><div class="ban"></div><div class="in">
