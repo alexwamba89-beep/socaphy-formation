@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOCAphy - Leçon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--vert-900:#052E1A;--vert-800:#0A4A2A;--vert-700:#0B6B3A;--vert-500:#2E8B57;--vert-100:#DDEDE3;--vert-050:#F4F8F5;
+--or-500:#C9A227;--encre:#1A2620;--gris-600:#6A776F;--gris-400:#9AA69E;--filet:#ECEFEC;--papier:#FFFFFF;--brume:#FAFBFA;
+--titre:"Fraunces",Georgia,serif;--texte:"Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--texte);color:var(--encre);background:var(--brume);font-size:16px;line-height:1.6}
+h1,h2,h3{font-family:var(--titre);font-weight:600;line-height:1.2}
+a{color:inherit;text-decoration:none}
+.barre{background:var(--vert-900);color:#fff;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 22px}
+.barre .g{display:flex;align-items:center;gap:14px;font-size:14.5px}
+.barre .logo{font-family:var(--titre);font-size:17px}
+.barre .prog{font-size:13px;color:rgba(255,255,255,.7)}
+.barre .jauge{width:120px;height:6px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden}
+.barre .jauge i{display:block;height:100%;width:40%;background:var(--or-500)}
+.app{display:grid;grid-template-columns:1fr 320px;min-height:calc(100vh - 58px)}
+@media(max-width:900px){.app{grid-template-columns:1fr}}
+/* zone principale */
+.main{padding:0}
+.lecteur{background:#0b120e;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);position:relative}
+.lecteur .play{width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;transition:.15s}
+.lecteur .play:hover{background:var(--vert-700);color:#fff}
+.lecteur .lab{position:absolute;bottom:16px;left:18px;font-size:13px;color:rgba(255,255,255,.65)}
+.contenu{padding:30px 40px 60px;max-width:760px}
+@media(max-width:600px){.contenu{padding:24px}}
+.contenu .fil{font-size:13px;color:var(--gris-400);margin-bottom:10px}
+.contenu h1{font-size:28px;color:var(--vert-900);font-weight:500;margin-bottom:18px}
+/* onglets format */
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--filet);margin-bottom:22px}
+.tab{padding:10px 16px;font-size:14.5px;font-weight:500;color:var(--gris-600);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;display:flex;gap:7px;align-items:center}
+.tab.on{color:var(--vert-700);border-color:var(--vert-700)}
+.vue{display:none}.vue.on{display:block}
+.vue p{color:var(--gris-600);font-weight:300;margin-bottom:14px}
+.audio{background:#fff;border:1px solid var(--filet);border-radius:12px;padding:18px;display:flex;align-items:center;gap:16px}
+.audio .btn-a{width:46px;height:46px;border-radius:50%;background:var(--vert-700);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;cursor:pointer}
+.audio .onde{flex:1;height:6px;background:var(--filet);border-radius:3px;position:relative}.audio .onde i{position:absolute;left:0;top:0;height:100%;width:30%;background:var(--vert-500);border-radius:3px}
+.audio .t{font-size:13px;color:var(--gris-400)}
+.ress a{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid var(--filet);border-radius:10px;margin-bottom:10px;font-size:14.5px;color:var(--encre);transition:.15s}
+.ress a:hover{border-color:var(--vert-500);background:#fff}
+.ress a .ic{font-size:20px}
+.ress a .fl{margin-left:auto;color:var(--gris-400)}
+.navb{display:flex;justify-content:space-between;margin-top:34px;padding-top:22px;border-top:1px solid var(--filet)}
+.navb a{font-size:14.5px;color:var(--vert-700);font-weight:500}
+.btn{padding:11px 20px;border-radius:9px;background:var(--vert-700);color:#fff;border:none;font-weight:500;font-size:14.5px;cursor:pointer}
+/* sidebar curriculum */
+.cote{background:#fff;border-left:1px solid var(--filet);padding:22px 0;overflow-y:auto}
+.cote h3{font-size:15px;color:var(--vert-900);padding:0 22px 14px;font-weight:600}
+.sect-t{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--gris-400);padding:14px 22px 6px;font-weight:600}
+.lec{display:flex;align-items:center;gap:11px;padding:11px 22px;font-size:14px;color:var(--gris-600);cursor:pointer;border-left:2px solid transparent}
+.lec:hover{background:var(--brume)}
+.lec.on{background:var(--vert-050);color:var(--vert-900);border-color:var(--vert-700);font-weight:500}
+.lec.fait{color:var(--gris-400)}
+.lec .ic{width:20px;text-align:center;flex-shrink:0}
+.lec .d{margin-left:auto;font-size:12px;color:var(--gris-400)}
+.mklogo{height:1.6em;width:auto;vertical-align:-.42em}
+.barre .mklogo{background:#fff;border-radius:6px;padding:2px 3px;height:2em}
+.lienp{color:rgba(255,255,255,.8);font-size:13.5px;text-decoration:none}
+.lienp:hover{color:var(--or-500)}
+</style>
+</head>
+<body>
+
+<div class="barre">
+  <div class="g"><a href="formation-detail.html" style="color:rgba(255,255,255,.75)">&larr;</a><span class="logo"><img src="socaphy-logo.png" class="mklogo" alt=""> Ethnopharmacologie appliquée</span></div>
+  <div class="g"><a href="https://socaphy.org" class="lienp">Site principal</a><span class="prog">Progression 40 %</span><span class="jauge"><i></i></span></div>
+</div>
+
+<div class="app">
+  <main class="main">
+    <div class="lecteur"><div class="play">&#9654;</div><span class="lab">Module 3 · Vidéo — 12:40</span></div>
+    <div class="contenu">
+      <div class="fil">Module 3 · Extraction et profils chromatographiques</div>
+      <h1>Criblage phytochimique et lecture des chromatogrammes</h1>
+
+      <div class="tabs" id="tabs">
+        <div class="tab on" data-v="video">&#9654; Vidéo</div>
+        <div class="tab" data-v="texte">&#128196; Texte</div>
+        <div class="tab" data-v="audio">&#127911; Audio</div>
+        <div class="tab" data-v="ress">&#128206; Ressources</div>
+      </div>
+
+      <div class="vue on" data-v="video">
+        <p>La vidéo ci-dessus présente les principales réactions de criblage phytochimique et la lecture d'un chromatogramme sur couche mince. Suivez-la avant de consulter le support texte pour approfondir.</p>
+      </div>
+      <div class="vue" data-v="texte">
+        <p>Le criblage phytochimique regroupe un ensemble de réactions colorées et de précipitations permettant de mettre en évidence les grandes familles de métabolites secondaires : alcaloïdes, flavonoïdes, tanins, saponosides, quinones…</p>
+        <p>La chromatographie sur couche mince (CCM) complète ce criblage en séparant les constituants d'un extrait selon leur affinité. La lecture des plaques, sous lumière visible et UV, oriente l'identification des composés et le choix des étapes de purification.</p>
+      </div>
+      <div class="vue" data-v="audio">
+        <p style="margin-bottom:14px">Version audio de la leçon, à écouter en mobilité.</p>
+        <div class="audio"><div class="btn-a">&#9654;</div><div class="onde"><i></i></div><span class="t">04:12 / 14:30</span></div>
+      </div>
+      <div class="vue" data-v="ress">
+        <div class="ress">
+          <a href="#"><span class="ic">&#128196;</span> Fiche de synthèse — réactions de criblage (PDF)<span class="fl">&darr;</span></a>
+          <a href="#"><span class="ic">&#128202;</span> Grille de lecture d'un chromatogramme (PDF)<span class="fl">&darr;</span></a>
+          <a href="#"><span class="ic">&#128221;</span> Quiz d'auto-évaluation du module 3<span class="fl">&rsaquo;</span></a>
+        </div>
+      </div>
+
+      <div class="navb"><a href="#">&larr; Leçon précédente</a><button class="btn">Marquer comme terminé &rarr;</button></div>
+    </div>
+  </main>
+
+  <aside class="cote">
+    <h3>Contenu de la formation</h3>
+    <div class="sect-t">Module 1 · Méthodes</div>
+    <div class="lec fait"><span class="ic">&#10003;</span> Champ de l'ethnopharmacologie<span class="d">10 min</span></div>
+    <div class="lec fait"><span class="ic">&#10003;</span> Construire son questionnaire<span class="d">14 min</span></div>
+    <div class="sect-t">Module 2 · Terrain</div>
+    <div class="lec fait"><span class="ic">&#10003;</span> Conduite d'entretien<span class="d">18 min</span></div>
+    <div class="lec fait"><span class="ic">&#10003;</span> Herbier de référence<span class="d">12 min</span></div>
+    <div class="sect-t">Module 3 · Extraction</div>
+    <div class="lec on"><span class="ic">&#9654;</span> Criblage et chromatogrammes<span class="d">13 min</span></div>
+    <div class="lec"><span class="ic">&#9711;</span> Profils comparés<span class="d">9 min</span></div>
+    <div class="sect-t">Module 4 · Évaluation</div>
+    <div class="lec"><span class="ic">&#9711;</span> Essais in vitro<span class="d">16 min</span></div>
+    <div class="lec"><span class="ic">&#9711;</span> Notions de toxicologie<span class="d">11 min</span></div>
+    <div class="sect-t">Module 5 · Cadre & rédaction</div>
+    <div class="lec"><span class="ic">&#9711;</span> Protocole de Nagoya<span class="d">15 min</span></div>
+    <div class="lec"><span class="ic">&#9711;</span> Rédiger et soumettre<span class="d">13 min</span></div>
+  </aside>
+</div>
+
+<script>
+(function(){
+  var tabs=document.querySelectorAll('#tabs .tab'),vues=document.querySelectorAll('.vue');
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(x){x.classList.remove('on');});t.classList.add('on');
+    vues.forEach(function(v){v.classList.toggle('on',v.dataset.v===t.dataset.v);});
+  });});
+  document.querySelectorAll('.cote .lec').forEach(function(l){l.addEventListener('click',function(){
+    document.querySelectorAll('.cote .lec').forEach(function(x){x.classList.remove('on');});l.classList.add('on');
+  });});
+})();
+</script>
+</body>
+</html>

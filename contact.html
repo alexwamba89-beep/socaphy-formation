@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOCAphy - Nous contacter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--vert-900:#052E1A;--vert-800:#0A4A2A;--vert-700:#0B6B3A;--vert-500:#2E8B57;--vert-100:#DDEDE3;--vert-050:#F4F8F5;
+--or-500:#C9A227;--or-050:#FBF6E7;--encre:#1A2620;--gris-600:#6A776F;--gris-400:#9AA69E;--filet:#ECEFEC;--papier:#FFFFFF;--brume:#FAFBFA;
+--titre:"Fraunces",Georgia,serif;--texte:"Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;--max:1080px;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--texte);color:var(--encre);background:var(--brume);font-size:16px;line-height:1.6}
+h1,h2,h3{font-family:var(--titre);font-weight:600;line-height:1.2}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.mklogo{height:1.6em;width:auto;vertical-align:-.42em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:10px;background:var(--vert-700);color:#fff;font-weight:500;font-size:15px;border:none;cursor:pointer}
+.btn:hover{background:var(--vert-900)}
+.btn.creux{background:transparent;color:var(--vert-700);border:1px solid var(--filet)}
+.btn.large{width:100%}
+header{background:#fff;border-bottom:1px solid var(--filet);position:sticky;top:0;z-index:20}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{font-family:var(--titre);font-size:19px;color:var(--vert-900);display:flex;align-items:center;gap:9px}
+.nav ul{display:flex;gap:24px;list-style:none;font-size:15px;color:var(--gris-600)}.nav ul a:hover{color:var(--vert-700)}
+@media(max-width:760px){.nav ul{display:none}}
+.grp{margin-bottom:18px}
+.grp>label{display:block;font-size:14px;font-weight:500;margin-bottom:7px}
+input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--filet);border-radius:10px;font-size:15px;font-family:var(--texte);color:var(--encre);background:#fff}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--vert-500);box-shadow:0 0 0 3px var(--vert-050)}
+textarea{min-height:130px;resize:vertical}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:560px){.deux{grid-template-columns:1fr}}
+.segs{display:flex;gap:8px}
+.seg{flex:1;text-align:center;padding:11px;border:1px solid var(--filet);border-radius:10px;cursor:pointer;font-size:14px;font-weight:500;color:var(--gris-600);user-select:none;transition:.15s}
+.seg.on{border-color:var(--vert-700);background:var(--vert-050);color:var(--vert-900)}
+footer{border-top:1px solid var(--filet);padding:34px 0;color:var(--gris-400);font-size:14px;text-align:center;background:#fff;margin-top:20px}
+footer a{color:var(--gris-600)}footer a:hover{color:var(--vert-700)}
+
+.entete{padding:52px 0 10px;text-align:center}.entete .fil{width:40px;height:2px;background:var(--or-500);margin:0 auto 18px}
+.entete h1{font-size:36px;color:var(--vert-900);font-weight:500;margin-bottom:10px}
+.entete p{color:var(--gris-600);font-weight:300;max-width:520px;margin:0 auto}
+.corps{display:grid;grid-template-columns:1fr 320px;gap:40px;padding:34px 0 60px;align-items:start}
+@media(max-width:860px){.corps{grid-template-columns:1fr}}
+form{background:#fff;border:1px solid var(--filet);border-radius:16px;padding:30px}
+.info{display:grid;gap:18px}
+.bloc-i{background:#fff;border:1px solid var(--filet);border-radius:14px;padding:20px}
+.bloc-i h3{font-size:15px;color:var(--vert-900);margin-bottom:8px;font-family:var(--titre)}
+.bloc-i p,.bloc-i a{color:var(--gris-600);font-size:14.5px;display:block;padding:2px 0}
+.bloc-i a:hover{color:var(--vert-700)}
+.ic{color:var(--vert-500);margin-right:8px}
+</style></head><body>
+<header><div class="wrap nav">
+  <a class="logo" href="index.html"><img src="socaphy-logo.png" class="mklogo" alt=""> SOCAphy <span style="color:var(--gris-400);font-weight:400">&middot; Contact</span></a>
+  <ul><li><a href="index.html">Catalogue</a></li><li><a href="contact.html">Nous contacter</a></li><li><a href="https://socaphy.org">Site principal</a></li></ul>
+</div></header>
+<div class="wrap entete">
+  <div class="fil"></div>
+  <h1>Nous contacter</h1>
+  <p>Une question sur nos formations, la revue, ou l'adhesion ? Ecrivez-nous, le secretariat vous repond sous cinq jours ouvres.</p>
+</div>
+
+<div class="wrap"><div class="corps">
+  <form onsubmit="return false">
+    <div class="deux">
+      <div class="grp"><label>Nom</label><input placeholder="Votre nom"></div>
+      <div class="grp"><label>Adresse electronique</label><input type="email" placeholder="nom@exemple.com"></div>
+    </div>
+    <div class="grp"><label>Sujet</label>
+      <select><option>Formations</option><option>Revue et publications</option><option>Adhesion</option><option>Partenariat</option><option>Autre</option></select></div>
+    <div class="grp"><label>Message</label><textarea placeholder="Votre message..."></textarea></div>
+    <button class="btn large" id="ok">Envoyer le message</button>
+    <div id="msg" style="margin-top:14px"></div>
+  </form>
+
+  <aside class="info">
+    <div class="bloc-i"><h3>Courriel</h3><a href="mailto:contact@socaphy.org">contact@socaphy.org</a></div>
+    <div class="bloc-i"><h3>Localisation</h3><p><span class="ic">&#128205;</span>Yaounde, Cameroun</p></div>
+    <div class="bloc-i"><h3>Nos plateformes</h3>
+      <a href="https://socaphy.org">Site principal</a>
+      <a href="index.html">Formations</a>
+      <a href="https://revue.socaphy.org">Revue scientifique</a>
+    </div>
+  </aside>
+</div></div>
+
+<footer><div class="wrap"><a href="https://socaphy.org">Site principal</a> &nbsp;&middot;&nbsp; <a href="index.html">Formations</a> &nbsp;&middot;&nbsp; <a href="revue.html">Revue</a><br><br>&copy; 2026 SOCAphy - template de demonstration</div></footer>
+
+<script>
+document.getElementById('ok').addEventListener('click',function(){
+  document.getElementById('msg').innerHTML='<div style="background:var(--vert-050);color:var(--vert-700);padding:12px 15px;border-radius:9px;font-size:14px">Maquette : a brancher sur Supabase (table demandes) pour enregistrer reellement.</div>';
+});
+</script>
+</body></html>
