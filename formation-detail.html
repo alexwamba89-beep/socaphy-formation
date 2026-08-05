@@ -1,140 +1,111 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
+<html lang="fr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SOCAphy - Ethnopharmacologie appliquée</title>
+<title>SOCAphy - Formation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--vert-900:#052E1A;--vert-800:#0A4A2A;--vert-700:#0B6B3A;--vert-500:#2E8B57;--vert-100:#DDEDE3;--vert-050:#F4F8F5;
---or-500:#C9A227;--or-050:#FBF6E7;--encre:#1A2620;--gris-600:#6A776F;--gris-400:#9AA69E;--filet:#ECEFEC;--papier:#FFFFFF;--brume:#FAFBFA;
---titre:"Fraunces",Georgia,serif;--texte:"Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;--max:1080px;}
+--or-700:#8A6E10;--or-500:#C9A227;--or-050:#FBF6E7;--encre:#1A2620;--gris-600:#6A776F;--gris-400:#9AA69E;--filet:#ECEFEC;--papier:#FFFFFF;--brume:#FAFBFA;
+--titre:"Fraunces",Georgia,serif;--texte:"Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;--max:1060px;}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--texte);color:var(--encre);background:var(--papier);font-size:16px;line-height:1.6}
 h1,h2,h3{font-family:var(--titre);font-weight:600;line-height:1.2}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:10px;background:var(--vert-700);color:#fff;font-weight:500;font-size:15px;border:none;cursor:pointer;width:100%}
+.mklogo{height:1.6em;width:auto;vertical-align:-.42em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:10px;background:var(--vert-700);color:#fff;font-weight:500;font-size:15px;border:none;cursor:pointer;width:100%}
 .btn:hover{background:var(--vert-900)}
 .btn.creux{background:transparent;color:var(--vert-700);border:1px solid var(--filet)}
+.btn.creux:hover{background:var(--vert-050)}
 header{border-bottom:1px solid var(--filet)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
-.logo{font-family:var(--titre);font-size:19px;color:var(--vert-900)}
-.nav ul{display:flex;gap:24px;list-style:none;font-size:15px;color:var(--gris-600)}.nav ul a:hover{color:var(--vert-700)}
+.logo{font-family:var(--titre);font-size:19px;color:var(--vert-900);display:flex;align-items:center;gap:9px}
+.nav ul{display:flex;gap:22px;list-style:none;font-size:15px;color:var(--gris-600)}.nav ul a:hover{color:var(--vert-700)}
 @media(max-width:760px){.nav ul{display:none}}
-/* hero */
-.top{background:linear-gradient(160deg,var(--vert-900),var(--vert-700));color:#fff;padding:34px 0 46px}
-.fil{font-size:13.5px;color:rgba(255,255,255,.7);margin-bottom:18px}
-.fil a:hover{color:var(--or-500)}
+footer{border-top:1px solid var(--filet);padding:34px 0;color:var(--gris-400);font-size:14px;text-align:center;margin-top:24px}
+footer a{color:var(--gris-600)}footer a:hover{color:var(--vert-700)}
+.charge{padding:80px 24px;text-align:center;color:var(--gris-400)}
+
+.top{background:linear-gradient(160deg,var(--vert-900),var(--vert-700));color:#fff;padding:32px 0 44px}
+.top .fil{font-size:13.5px;color:rgba(255,255,255,.7);margin-bottom:16px}.top .fil a:hover{color:var(--or-500)}
 .top .cat{display:inline-block;background:rgba(255,255,255,.15);padding:4px 12px;border-radius:999px;font-size:12.5px;font-weight:600;margin-bottom:14px}
-.top h1{font-size:clamp(28px,4.4vw,42px);font-weight:500;max-width:720px;margin-bottom:14px}
-.top p{color:rgba(255,255,255,.85);font-size:18px;max-width:640px;font-weight:300}
-.top .meta{display:flex;gap:26px;margin-top:22px;flex-wrap:wrap;font-size:14.5px;color:rgba(255,255,255,.85)}
-.top .meta b{color:var(--or-500);font-weight:600}
-/* layout */
-.corps{display:grid;grid-template-columns:1fr 340px;gap:44px;padding:44px 0 60px;align-items:start}
-@media(max-width:900px){.corps{grid-template-columns:1fr}}
-.bloc{margin-bottom:38px}
-.bloc h2{font-size:24px;color:var(--vert-900);margin-bottom:16px;font-weight:500}
-.bloc p{color:var(--gris-600);font-weight:300;margin-bottom:12px}
-.obj{list-style:none;display:grid;gap:11px}
-.obj li{display:flex;gap:11px;color:var(--encre);font-size:15.5px}
-.obj li:before{content:"\2713";color:var(--vert-500);font-weight:700}
-/* programme accordeon */
-.mod{border:1px solid var(--filet);border-radius:12px;margin-bottom:10px;overflow:hidden}
-.mod summary{padding:16px 18px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:12px;list-style:none}
-.mod summary::-webkit-details-marker{display:none}
-.mod summary .n{width:26px;height:26px;border-radius:50%;background:var(--vert-050);color:var(--vert-700);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
-.mod summary .fl{margin-left:auto;color:var(--gris-400);transition:.2s}
-.mod[open] summary .fl{transform:rotate(90deg)}
-.mod .det{padding:0 18px 18px 56px;color:var(--gris-600);font-size:14.5px;font-weight:300}
-/* sidebar carte */
-.side{position:sticky;top:24px;border:1px solid var(--filet);border-radius:16px;overflow:hidden;box-shadow:0 12px 40px rgba(5,46,26,.07)}
-.side .banniere{height:120px;background:linear-gradient(135deg,var(--vert-800),var(--vert-500));position:relative}
-.side .banniere .f{position:absolute;bottom:14px;right:16px;font-size:34px}
-.side .in{padding:22px}
-.side .tarif{font-family:var(--titre);font-size:26px;color:var(--vert-900);margin-bottom:4px}
-.side .tarif small{font-family:var(--texte);font-size:13px;color:var(--gris-400);font-weight:400}
-.side .btn{margin:16px 0 10px}
-.side ul{list-style:none;margin-top:16px;border-top:1px solid var(--filet);padding-top:16px;display:grid;gap:11px}
-.side ul li{display:flex;justify-content:space-between;font-size:14px;color:var(--gris-600)}
-.side ul li b{color:var(--encre);font-weight:500}
-.fmts{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
-.fmt{font-size:12px;font-weight:500;padding:4px 10px;border-radius:6px;background:var(--vert-050);color:var(--vert-700)}
-.places{background:var(--or-050);color:#8A6E10;font-size:13px;padding:8px 12px;border-radius:8px;margin-top:14px;text-align:center}
-footer{border-top:1px solid var(--filet);padding:34px 0;color:var(--gris-400);font-size:14px;text-align:center}
-.mklogo{height:1.6em;width:auto;vertical-align:-.42em}
-</style>
-</head>
-<body>
+.top h1{font-size:clamp(26px,4vw,40px);font-weight:500;max-width:720px;margin-bottom:12px}
+.top p{color:rgba(255,255,255,.85);font-size:17px;max-width:640px;font-weight:300}
+.top .meta{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap;font-size:14px;color:rgba(255,255,255,.85)}
+.top .meta b{color:var(--or-500);font-weight:600;display:block;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.corps{display:grid;grid-template-columns:1fr 320px;gap:40px;padding:40px 0 60px;align-items:start}
+@media(max-width:880px){.corps{grid-template-columns:1fr}}
+.bloc{margin-bottom:34px}.bloc h2{font-size:22px;color:var(--vert-900);margin-bottom:14px;font-weight:500}
+.bloc p{color:var(--gris-600);font-weight:300}
+.obj{list-style:none;display:grid;gap:10px}.obj li{display:flex;gap:10px;font-size:15.5px}.obj li:before{content:"\2713";color:var(--vert-500);font-weight:700}
+.prog{display:grid;gap:10px}.prog .m{display:flex;gap:12px;align-items:center;border:1px solid var(--filet);border-radius:10px;padding:14px 16px}
+.prog .n{width:26px;height:26px;border-radius:50%;background:var(--vert-050);color:var(--vert-700);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
+.side{position:sticky;top:20px;border:1px solid var(--filet);border-radius:16px;overflow:hidden;box-shadow:0 12px 40px rgba(5,46,26,.07)}
+.side .ban{height:96px;background:linear-gradient(135deg,var(--vert-800),var(--vert-500))}
+.side .in{padding:22px}.side .tarif{font-family:var(--titre);font-size:24px;color:var(--vert-900)}.side .tarif small{font-family:var(--texte);font-size:12px;color:var(--gris-400);font-weight:400}
+.side .btn{margin:14px 0 10px}.fmts{display:flex;gap:6px;margin:12px 0}.fmt{font-size:12px;font-weight:500;padding:4px 10px;border-radius:6px;background:var(--vert-050);color:var(--vert-700)}
+.side ul{list-style:none;margin-top:14px;border-top:1px solid var(--filet);padding-top:14px;display:grid;gap:10px}
+.side li{display:flex;justify-content:space-between;font-size:14px;color:var(--gris-600)}.side li b{color:var(--encre);font-weight:500}
+.places{background:var(--or-050);color:#8A6E10;font-size:13px;padding:8px 12px;border-radius:8px;margin-top:12px;text-align:center}
+</style></head><body>
 
 <header><div class="wrap nav">
-  <a class="logo" href="index.html"><img src="socaphy-logo.png" class="mklogo" alt=""> SOCAphy · Formations</a>
+  <a class="logo" href="index.html"><img src="socaphy-logo.png" class="mklogo" alt=""> SOCAphy <span style="color:var(--gris-400);font-weight:400">&middot; Formations</span></a>
   <ul><li><a href="index.html">Catalogue</a></li><li><a href="contact.html">Nous contacter</a></li><li><a href="https://socaphy.org">Site principal</a></li></ul>
 </div></header>
 
-<section class="top"><div class="wrap">
-  <div class="fil"><a href="index.html">Catalogue</a> &rsaquo; Ethnopharmacologie &rsaquo; <span style="color:#fff">Ethnopharmacologie appliquée</span></div>
-  <span class="cat">Ethnopharmacologie</span>
-  <h1>Ethnopharmacologie appliquée</h1>
-  <p>Une semaine pour maîtriser la chaîne complète, de l'enquête de terrain jusqu'à l'évaluation pharmacologique.</p>
-  <div class="meta"><span><b>Niveau</b> Perfectionnement</span><span><b>Durée</b> 5 jours · 35 h</span><span><b>Lieu</b> Yaoundé</span><span><b>Prochaine session</b> 16 nov. 2026</span></div>
-</div></section>
+<div id="vue"><div class="charge">Chargement…</div></div>
 
-<div class="wrap"><div class="corps">
+<footer><div class="wrap"><a href="https://socaphy.org">Site principal</a> &nbsp;&middot;&nbsp; <a href="index.html">Formations</a> &nbsp;&middot;&nbsp; <a href="contact.html">Contact</a></div></footer>
 
-  <div>
-    <div class="bloc">
-      <h2>Présentation</h2>
-      <p>Cette formation intensive couvre l'ensemble de la démarche ethnopharmacologique : de la conduite d'une enquête de terrain méthodologiquement solide jusqu'à l'évaluation biologique des extraits, en passant par l'authentification botanique et le cadre juridique du Protocole de Nagoya.</p>
-      <p>Elle s'adresse aux chercheurs, pharmaciens, médecins, doctorants et agents des services de santé souhaitant ancrer leur pratique dans une méthodologie rigoureuse.</p>
-    </div>
-
-    <div class="bloc">
-      <h2>Objectifs pédagogiques</h2>
-      <ul class="obj">
-        <li>Conduire une enquête ethnobotanique méthodologiquement solide</li>
-        <li>Authentifier et conserver un échantillon de référence</li>
-        <li>Concevoir un protocole d'évaluation pharmacologique</li>
-        <li>Situer un travail dans le cadre juridique du Protocole de Nagoya</li>
-      </ul>
-    </div>
-
-    <div class="bloc">
-      <h2>Programme</h2>
-      <details class="mod" open><summary><span class="n">1</span> Champ et méthodes de l'ethnopharmacologie <span class="fl">&rsaquo;</span></summary><div class="det">Construction du questionnaire d'enquête, cadrage de l'étude, revue des sources. Supports : vidéo + texte.</div></details>
-      <details class="mod"><summary><span class="n">2</span> Terrain : entretien, collecte, herbier <span class="fl">&rsaquo;</span></summary><div class="det">Conduite d'entretien, collecte, authentification botanique, constitution de l'herbier de référence.</div></details>
-      <details class="mod"><summary><span class="n">3</span> Extraction et profils chromatographiques <span class="fl">&rsaquo;</span></summary><div class="det">Extraction, criblage phytochimique et lecture des profils chromatographiques. Support audio disponible.</div></details>
-      <details class="mod"><summary><span class="n">4</span> Évaluation biologique et toxicologie <span class="fl">&rsaquo;</span></summary><div class="det">Évaluation in vitro et in vivo ; notions de toxicologie appliquée.</div></details>
-      <details class="mod"><summary><span class="n">5</span> Cadre juridique et rédaction <span class="fl">&rsaquo;</span></summary><div class="det">Protocole de Nagoya, partage des avantages, rédaction et soumission d'un travail.</div></details>
-    </div>
-
-    <div class="bloc">
-      <h2>Public visé</h2>
-      <p>Chercheurs, pharmaciens, médecins, doctorants, agents des services de santé.</p>
-    </div>
-  </div>
-
-  <aside class="side">
-    <div class="banniere"><span class="f">&#127807;</span></div>
-    <div class="in">
-      <div class="tarif">Sur devis <small>/ tarif à préciser</small></div>
-      <a href="formation-inscription.html" class="btn">S'inscrire à la session</a>
-      <a href="formation-lecon.html" class="btn creux">Aperçu d'une leçon</a>
-      <div class="fmts"><span class="fmt">&#9654; Vidéo</span><span class="fmt">&#128196; Texte</span><span class="fmt">&#127911; Audio</span></div>
-      <ul>
-        <li><span>Durée</span><b>35 heures</b></li>
-        <li><span>Sessions</span><b>5 jours</b></li>
-        <li><span>Niveau</span><b>Perfectionnement</b></li>
-        <li><span>Lieu</span><b>Yaoundé</b></li>
-        <li><span>Langue</span><b>Français</b></li>
-      </ul>
-      <div class="places">Il reste 13 places sur 24</div>
-    </div>
-  </aside>
-
-</div></div>
-
-<footer>&copy; 2026 SOCAphy · Formations — template de démonstration</footer>
-</body>
-</html>
+<script>
+(function(){
+  const SB=window.supabase.createClient("https://sbcgnerfguafogdfqlxb.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNiY2duZXJmZ3VhZm9nZGZxbHhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU3OTM5MjAsImV4cCI6MjEwMTM2OTkyMH0.kRV-VnBX1sJuEHqCkMe0YCIz3JnixRJqGHYTrQCdIDg");
+  const echap=v=>(v==null?"":String(v)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const id=new URLSearchParams(location.search).get("id");
+  const vue=document.getElementById("vue");
+  function dt(d){ if(!d)return "à preciser"; var p=String(d).split("-"); return p.length===3?p[2]+"/"+p[1]+"/"+p[0]:d; }
+  if(!id){ vue.innerHTML='<div class="charge">Aucune formation selectionnee. <a href="index.html" style="color:var(--vert-700)">Retour au catalogue</a></div>'; return; }
+  SB.from("formations").select("*").eq("id",id).single().then(function(r){
+    if(r.error||!r.data){ vue.innerHTML='<div class="charge">Formation introuvable. <a href="index.html" style="color:var(--vert-700)">Retour au catalogue</a></div>'; return; }
+    var f=r.data;
+    var obj=(f.objectifs||[]).map(o=>`<li>${echap(o)}</li>`).join("")||'<li>à preciser</li>';
+    var prog=(f.programme||[]).map((m,i)=>`<div class="m"><span class="n">${i+1}</span><span>${echap(m)}</span></div>`).join("")||'<div class="m"><span>Programme à preciser</span></div>';
+    var restant=(f.places!=null&&f.inscrits!=null)?(f.places-f.inscrits):null;
+    vue.innerHTML=`
+    <section class="top"><div class="wrap">
+      <div class="fil"><a href="index.html">Catalogue</a> &rsaquo; <span style="color:#fff">${echap(f.titre)}</span></div>
+      <span class="cat">${echap(f.niveau||"Formation")}</span>
+      <h1>${echap(f.titre)}</h1>
+      <p>${echap(f.resume||"")}</p>
+      <div class="meta"><span><b>Niveau</b>${echap(f.niveau||"-")}</span><span><b>Duree</b>${echap(f.duree||"-")}</span><span><b>Lieu</b>${echap(f.lieu||"-")}</span><span><b>Prochaine session</b>${dt(f.prochaine)}</span></div>
+    </div></section>
+    <div class="wrap"><div class="corps">
+      <div>
+        <div class="bloc"><h2>Presentation</h2><p>${echap(f.resume||"")}</p></div>
+        <div class="bloc"><h2>Objectifs pedagogiques</h2><ul class="obj">${obj}</ul></div>
+        <div class="bloc"><h2>Programme</h2><div class="prog">${prog}</div></div>
+        <div class="bloc"><h2>Public vise</h2><p>${echap(f.audience||"-")}</p></div>
+      </div>
+      <aside class="side"><div class="ban"></div><div class="in">
+        <div class="tarif">${echap(f.tarif||"Sur devis")} <small>${f.tarif?"":"/ tarif a preciser"}</small></div>
+        <a href="formation-inscription.html?id=${f.id}" class="btn">S'inscrire a la session</a>
+        <a href="formation-lecon.html" class="btn creux">Apercu d'une lecon</a>
+        <div class="fmts"><span class="fmt">&#9654; Video</span><span class="fmt">&#128196; Texte</span><span class="fmt">&#127911; Audio</span></div>
+        <ul>
+          <li><span>Duree</span><b>${echap(f.volume||f.duree||"-")}</b></li>
+          <li><span>Sessions</span><b>${echap(f.duree||"-")}</b></li>
+          <li><span>Niveau</span><b>${echap(f.niveau||"-")}</b></li>
+          <li><span>Lieu</span><b>${echap(f.lieu||"-")}</b></li>
+          <li><span>Formateur</span><b>${echap(f.formateur||"-")}</b></li>
+        </ul>
+        ${restant!=null?`<div class="places">Il reste ${restant} places sur ${f.places}</div>`:""}
+      </div></aside>
+    </div></div>`;
+    document.title="SOCAphy - "+(f.titre||"Formation");
+  });
+})();
+</script>
+</body></html>
